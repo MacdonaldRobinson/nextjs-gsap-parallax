@@ -5,7 +5,6 @@ import gsap from "gsap";
 import GsapContext from "../GsapContext/GsapContext";
 
 import { ScrollSmoother, ScrollTrigger } from "gsap/all";
-import GsapBackground from "./GsapBackground";
 
 gsap.registerPlugin(ScrollSmoother, ScrollTrigger);
 
