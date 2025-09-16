@@ -42,7 +42,13 @@ export default function Home() {
                             type="img"
                             src="https://via.assets.so/game.png?id=6&q=95&w=360&h=360&fit=fill"
                         />
-                        STEP
+
+                        <GsapWrapper
+                            className="text-red-300"
+                            gsapToTweenVars={[{ xPercent: 100 }]}
+                        >
+                            THIS IS A SECTION CONTENT
+                        </GsapWrapper>
                     </GsapWrapper>
                     <GsapBackground
                         gsapToTweenVars={[]}
@@ -52,6 +58,7 @@ export default function Home() {
                     <GsapWrapper
                         className="w-50 h-50 relative"
                         gsapToTweenVars={[{ yPercent: 100 }]}
+                        forceSelfScrollTrigger
                     >
                         TEST
                         <GsapBackground
@@ -63,6 +70,7 @@ export default function Home() {
                     <GsapWrapper
                         className="w-50 h-50 relative self-end"
                         gsapToTweenVars={[{ yPercent: 100 }]}
+                        forceSelfScrollTrigger
                     >
                         TEST
                         <GsapBackground
@@ -95,7 +103,29 @@ export default function Home() {
                             type="img"
                             src="https://via.assets.so/game.png?id=2&q=95&w=360&h=360&fit=fill"
                         />
-                        STEP
+                        <GsapWrapper
+                            className=" h-full w-full absolute"
+                            gsapInitialTweenVars={{
+                                opacity: 0,
+                            }}
+                            gsapToTweenVars={[{ opacity: 1 }]}
+                        >
+                            STEP 2 SUB CONTENT
+                        </GsapWrapper>
+                    </GsapWrapper>
+                    <GsapWrapper
+                        className="bg-amber-300 h-full w-full absolute"
+                        gsapInitialTweenVars={{
+                            xPercent: -100,
+                        }}
+                        gsapToTweenVars={[{ xPercent: 0 }]}
+                    >
+                        <GsapBackground
+                            gsapToTweenVars={[]}
+                            type="img"
+                            src="https://via.assets.so/game.png?id=8&q=95&w=360&h=360&fit=fill"
+                        />
+                        STEP 2
                     </GsapWrapper>
                 </Section>
             </div>

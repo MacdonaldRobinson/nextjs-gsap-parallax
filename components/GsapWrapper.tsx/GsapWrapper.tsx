@@ -1,5 +1,5 @@
 "use client";
-import { useContext, useRef, useState } from "react";
+import { useContext, useId, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import GsapContext from "../GsapContext/GsapContext";
@@ -15,6 +15,7 @@ export type TGsapWrapper = {
     gsapToTweenVars?: gsap.TweenVars[];
     gsapScrollTriggerVars?: ScrollTrigger.Vars;
     className?: string;
+    forceSelfScrollTrigger?: boolean;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 const GsapWrapper = ({
@@ -23,11 +24,17 @@ const GsapWrapper = ({
     gsapInitialTweenVars,
     gsapScrollTriggerVars,
     className = "",
+    forceSelfScrollTrigger = false,
     ...props
 }: TGsapWrapper) => {
     const [gsapTimeline, setGsapTimeline] = useState<gsap.core.Timeline | null>(
         null
     );
+
+    const id = useId();
+
+    const parentGsapContext = useContext(GsapContext);
+
     const divRef = useRef<HTMLDivElement>(null);
 
     useGSAP(() => {
@@ -35,18 +42,25 @@ const GsapWrapper = ({
 
         const element = divRef.current;
 
-        const timeline = gsap.timeline({
-            scrollTrigger: {
-                trigger: element,
-                start: "top top",
-                end: "+=100%",
-                scrub: true,
-                ...gsapScrollTriggerVars,
-            },
-        });
+        let timeline: gsap.core.Timeline;
+
+        if (parentGsapContext?.timeline && !forceSelfScrollTrigger) {
+            timeline = gsap.timeline({ id: id });
+        } else {
+            timeline = gsap.timeline({
+                id: id,
+                scrollTrigger: {
+                    trigger: element,
+                    start: "top top",
+                    end: "+=100%",
+                    scrub: true,
+                    ...gsapScrollTriggerVars,
+                },
+            });
+        }
 
         if (gsapInitialTweenVars) {
-            gsap.to(element, {
+            gsap.set(element, {
                 ...gsapInitialTweenVars,
             });
         }
@@ -60,10 +74,19 @@ const GsapWrapper = ({
         }
 
         setGsapTimeline(timeline);
+
+        if (parentGsapContext?.timeline) {
+            parentGsapContext.timeline.add(timeline);
+        }
     }, []);
 
     return (
-        <div ref={divRef} className={`${className}`} {...props}>
+        <div
+            id={`gsapWrapper-${id}`}
+            ref={divRef}
+            className={`${className}`}
+            {...props}
+        >
             {divRef.current && gsapTimeline && (
                 <GsapContext.Provider
                     value={{
