@@ -104,13 +104,22 @@ export default function Home() {
                             src="https://via.assets.so/game.png?id=2&q=95&w=360&h=360&fit=fill"
                         />
                         <GsapWrapper
-                            className=" h-full w-full absolute"
+                            className=" h-full w-full absolute text-3xl text-amber-800"
                             gsapInitialTweenVars={{
                                 opacity: 0,
                             }}
-                            gsapToTweenVars={[{ opacity: 1 }]}
+                            gsapToTweenVars={[
+                                { opacity: 1 },
+                                {
+                                    xPercent: 50,
+                                },
+                                {
+                                    yPercent: 50,
+                                },
+                            ]}
+                            forceSelfScrollTrigger
                         >
-                            STEP 2 SUB CONTENT
+                            STEP 1 SUB CONTENT
                         </GsapWrapper>
                     </GsapWrapper>
                     <GsapWrapper
@@ -126,6 +135,31 @@ export default function Home() {
                             src="https://via.assets.so/game.png?id=8&q=95&w=360&h=360&fit=fill"
                         />
                         STEP 2
+                        <GsapWrapper
+                            className="h-fit w-fit absolute text-3xl text-amber-800"
+                            gsapInitialTweenVars={{
+                                opacity: 0,
+                            }}
+                            gsapToTweenVars={[
+                                { opacity: 1 },
+                                {
+                                    xPercent: 100,
+                                },
+                                {
+                                    yPercent: 100,
+                                },
+                                {
+                                    scale: 1.5,
+                                    backgroundColor: "black",
+                                    color: "white",
+                                },
+                                {
+                                    color: "red",
+                                },
+                            ]}
+                        >
+                            STEP 2 SUB CONTENT
+                        </GsapWrapper>
                     </GsapWrapper>
                 </Section>
             </div>
