@@ -146,7 +146,7 @@ export default function Home() {
                                     xPercent: 100,
                                 },
                                 {
-                                    yPercent: 100,
+                                    yPercent: 1000,
                                 },
                                 {
                                     scale: 1.5,
